@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>omnibox-fzf 設定</title>
+  <title data-i18n="optionsTitle">omnibox-fzf 設定</title>
   <style>
     :root {
       --bg-color: #ffffff;
@@ -195,7 +195,7 @@
     .unit-label {
       font-size: 13px;
       color: var(--text-muted);
-      width: 64px; /* Fixed width to prevent line shift */
+      width: 72px; /* Fixed width to prevent line shift */
     }
 
     .sub-setting {
@@ -244,16 +244,16 @@
 <body>
   <header>
     <img src="icons/icon48.png" alt="Icon">
-    <h1>omnibox-fzf 設定</h1>
+    <h1 data-i18n="optionsTitle">omnibox-fzf 設定</h1>
   </header>
 
-  <div class="section-title">検索対象</div>
+  <div class="section-title" data-i18n="sectionSearchTargets">検索対象</div>
   <div class="card">
     <!-- Tabs toggle -->
     <div class="setting-item">
       <div class="setting-info">
-        <div class="setting-title">開いているタブ [Tab]</div>
-        <div class="setting-desc">現在開いているタブを検索し、選択時にそのタブへ切り替えます</div>
+        <div class="setting-title" data-i18n="settingTabsTitle">開いているタブ [Tab]</div>
+        <div class="setting-desc" data-i18n="settingTabsDesc">現在開いているタブを検索し、選択時にそのタブへ切り替えます</div>
       </div>
       <label class="switch">
         <input type="checkbox" id="enableTabs">
@@ -264,8 +264,8 @@
     <!-- Bookmarks toggle -->
     <div class="setting-item">
       <div class="setting-info">
-        <div class="setting-title">ブックマーク [Bookmark]</div>
-        <div class="setting-desc">ブラウザに登録されたブックマークを検索します</div>
+        <div class="setting-title" data-i18n="settingBookmarksTitle">ブックマーク [Bookmark]</div>
+        <div class="setting-desc" data-i18n="settingBookmarksDesc">ブラウザに登録されたブックマークを検索します</div>
       </div>
       <label class="switch">
         <input type="checkbox" id="enableBookmarks">
@@ -276,8 +276,8 @@
     <!-- History toggle -->
     <div class="setting-item">
       <div class="setting-info">
-        <div class="setting-title">閲覧履歴 [History]</div>
-        <div class="setting-desc">過去の閲覧履歴をあいまい検索します</div>
+        <div class="setting-title" data-i18n="settingHistoryTitle">閲覧履歴 [History]</div>
+        <div class="setting-desc" data-i18n="settingHistoryDesc">過去の閲覧履歴をあいまい検索します</div>
       </div>
       <label class="switch">
         <input type="checkbox" id="enableHistory">
@@ -290,8 +290,8 @@
       <div class="setting-item">
         <div class="setting-info">
           <div class="setting-title">
-            履歴の検索期間
-            <span id="allHistoryBadge" class="badge-all" style="display: none;">全履歴</span>
+            <span data-i18n="settingHistoryDurationTitle">履歴の検索期間</span>
+            <span id="allHistoryBadge" class="badge-all" style="display: none;" data-i18n="allHistoryBadge">全履歴</span>
           </div>
           <div class="setting-desc" id="historyMonthsDesc">何ヶ月前までの履歴を対象にするかを指定します（0 = 全履歴・最大5万件）</div>
         </div>
@@ -303,7 +303,7 @@
     </div>
   </div>
 
-  <div id="toast" class="toast">設定を保存しました</div>
+  <div id="toast" class="toast" data-i18n="toastSaved">設定を保存しました</div>
 
   <script src="options.js"></script>
 </body>

@@ -17,9 +17,32 @@ const toastEl = document.getElementById('toast');
 
 let toastTimeout = null;
 
+function t(key, fallback = '') {
+  try {
+    return chrome.i18n.getMessage(key) || fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+// Localize all static elements with data-i18n attribute
+function localizePage() {
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    const msg = t(key);
+    if (msg) {
+      if (el.tagName === 'TITLE') {
+        document.title = msg;
+      } else {
+        el.textContent = msg;
+      }
+    }
+  });
+}
+
 function showToast(msg) {
   if (toastEl) {
-    toastEl.textContent = msg;
+    toastEl.textContent = msg || t('toastSaved', '設定を保存しました');
     toastEl.classList.add('show');
     clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
@@ -40,17 +63,18 @@ function updateHistoryUI() {
   const val = parseInt(historyMonthsEl.value, 10);
   if (val === 0) {
     allHistoryBadgeEl.style.display = 'inline-block';
-    historyMonthsDescEl.textContent = '全期間の履歴（最大50,000件）を対象にします';
-    unitLabelEl.textContent = '（全履歴）';
+    historyMonthsDescEl.textContent = t('allHistoryDesc', '全期間の履歴（最大50,000件）を対象にします');
+    unitLabelEl.textContent = t('unitAllHistory', '（全履歴）');
   } else {
     allHistoryBadgeEl.style.display = 'none';
-    historyMonthsDescEl.textContent = '何ヶ月前までの履歴を対象にするかを指定します（0 = 全履歴・最大5万件）';
-    unitLabelEl.textContent = 'ヶ月';
+    historyMonthsDescEl.textContent = t('settingHistoryDurationDesc', '何ヶ月前までの履歴を対象にするかを指定します（0 = 全履歴・最大5万件）');
+    unitLabelEl.textContent = t('unitMonths', 'ヶ月');
   }
 }
 
 // Load settings from chrome.storage.sync
 async function loadSettings() {
+  localizePage();
   try {
     const res = await chrome.storage.sync.get(DEFAULT_SETTINGS);
     enableTabsEl.checked = res.enableTabs !== false;
@@ -87,7 +111,7 @@ async function saveSettings() {
   try {
     await chrome.storage.sync.set(newSettings);
     updateHistoryUI();
-    showToast('設定を保存しました');
+    showToast(t('toastSaved', '設定を保存しました'));
   } catch (e) {
     console.error('Failed to save settings:', e);
   }

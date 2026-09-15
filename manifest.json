@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "omnibox-fzf - Tabs, Bookmarks & History Search",
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDesc__",
   "version": "1.2.0",
-  "description": "Fast fuzzy search for your open tabs, bookmarks, and browsing history directly from the omnibox with keyword 'f'.",
+  "default_locale": "en",
   "omnibox": {
     "keyword": "f"
   },

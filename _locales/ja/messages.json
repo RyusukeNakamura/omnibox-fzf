@@ -1,0 +1,94 @@
+{
+  "appName": {
+    "message": "omnibox-fzf - タブ・ブックマーク・履歴あいまい検索",
+    "description": "拡張機能の名前"
+  },
+  "appDesc": {
+    "message": "アドレスバーから開いているタブ・ブックマーク・閲覧履歴をfzfアルゴリズムで素早くあいまい検索できる拡張機能です。",
+    "description": "拡張機能の説明"
+  },
+  "omniboxPrompt": {
+    "message": "検索キーワードを入力（タブ・ブックマーク・履歴）...",
+    "description": "アドレスバー入力プロンプト"
+  },
+  "omniboxLoading": {
+    "message": "データを読み込み中（または検索対象がすべて無効です）...",
+    "description": "読み込み中のメッセージ"
+  },
+  "omniboxNoMatches": {
+    "message": "一致する結果がありません: ",
+    "description": "検索一致なしのメッセージ"
+  },
+  "tagTab": {
+    "message": "[Tab]",
+    "description": "タブのラベル"
+  },
+  "tagBookmark": {
+    "message": "[Bookmark]",
+    "description": "ブックマークのラベル"
+  },
+  "tagHistory": {
+    "message": "[History]",
+    "description": "履歴のラベル"
+  },
+  "optionsTitle": {
+    "message": "omnibox-fzf 設定",
+    "description": "設定画面のタイトル"
+  },
+  "sectionSearchTargets": {
+    "message": "検索対象",
+    "description": "設定セクション名"
+  },
+  "settingTabsTitle": {
+    "message": "開いているタブ [Tab]",
+    "description": "タブ検索項目のタイトル"
+  },
+  "settingTabsDesc": {
+    "message": "現在開いているタブを検索し、選択時にそのタブへ切り替えます",
+    "description": "タブ検索項目の説明"
+  },
+  "settingBookmarksTitle": {
+    "message": "ブックマーク [Bookmark]",
+    "description": "ブックマーク検索項目のタイトル"
+  },
+  "settingBookmarksDesc": {
+    "message": "ブラウザに登録されたブックマークを検索します",
+    "description": "ブックマーク検索項目の説明"
+  },
+  "settingHistoryTitle": {
+    "message": "閲覧履歴 [History]",
+    "description": "履歴検索項目のタイトル"
+  },
+  "settingHistoryDesc": {
+    "message": "過去の閲覧履歴をあいまい検索します",
+    "description": "履歴検索項目の説明"
+  },
+  "settingHistoryDurationTitle": {
+    "message": "履歴の検索期間",
+    "description": "履歴期間項目のタイトル"
+  },
+  "settingHistoryDurationDesc": {
+    "message": "何ヶ月前までの履歴を対象にするかを指定します（0 = 全履歴・最大5万件）",
+    "description": "履歴期間項目の説明"
+  },
+  "allHistoryBadge": {
+    "message": "全履歴",
+    "description": "全履歴バッジ"
+  },
+  "allHistoryDesc": {
+    "message": "全期間の履歴（最大50,000件）を対象にします",
+    "description": "0入力時の説明"
+  },
+  "unitMonths": {
+    "message": "ヶ月",
+    "description": "月数単位"
+  },
+  "unitAllHistory": {
+    "message": "（全履歴）",
+    "description": "全履歴時の単位表示"
+  },
+  "toastSaved": {
+    "message": "設定を保存しました",
+    "description": "保存完了通知"
+  }
+}

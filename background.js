@@ -14,6 +14,17 @@ let topResultItem = null;
 let itemByUrlMap = new Map();
 
 /**
+ * i18n helper with fallback
+ */
+function t(key, fallback = '') {
+  try {
+    return chrome.i18n.getMessage(key) || fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+/**
  * Load user settings from chrome.storage.sync
  */
 async function getSettings() {
@@ -169,13 +180,13 @@ function escapeXml(str) {
 }
 
 /**
- * Helper to get user-friendly tag
+ * Helper to get user-friendly tag with i18n support
  */
 function getTag(type) {
   switch (type) {
-    case 'tab': return '[Tab]';
-    case 'bookmark': return '[Bookmark]';
-    case 'history': return '[History]';
+    case 'tab': return t('tagTab', '[Tab]');
+    case 'bookmark': return t('tagBookmark', '[Bookmark]');
+    case 'history': return t('tagHistory', '[History]');
     default: return '';
   }
 }
@@ -201,7 +212,7 @@ chrome.bookmarks.onChanged.addListener(() => { lastFetchTime = 0; });
 chrome.omnibox.onInputStarted.addListener(() => {
   refreshData();
   chrome.omnibox.setDefaultSuggestion({
-    description: '<dim>[fzf]</dim> 検索キーワードを入力（タブ・ブックマーク・履歴）...'
+    description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxPrompt', 'Type keywords to search tabs, bookmarks & history...'))}`
   });
 });
 
@@ -210,7 +221,7 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
   const query = text.trim();
   if (!query) {
     chrome.omnibox.setDefaultSuggestion({
-      description: '<dim>[fzf]</dim> 検索キーワードを入力（タブ・ブックマーク・履歴）...'
+      description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxPrompt', 'Type keywords to search tabs, bookmarks & history...'))}`
     });
     topResultItem = null;
     return;
@@ -220,7 +231,7 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
 
   if (!fzfInstance || cachedItems.length === 0) {
     chrome.omnibox.setDefaultSuggestion({
-      description: '<dim>[fzf]</dim> データを読み込み中（または検索対象がすべて無効です）...'
+      description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxLoading', 'Loading data...'))}`
     });
     return;
   }
@@ -230,7 +241,7 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
 
   if (!results || results.length === 0) {
     chrome.omnibox.setDefaultSuggestion({
-      description: `<dim>[fzf]</dim> 一致する結果がありません: <match>${escapeXml(query)}</match>`
+      description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxNoMatches', 'No matches found for '))}<match>${escapeXml(query)}</match>`
     });
     topResultItem = null;
     return;

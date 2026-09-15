@@ -1,0 +1,94 @@
+{
+  "appName": {
+    "message": "omnibox-fzf - Tabs, Bookmarks & History Search",
+    "description": "The name of the extension"
+  },
+  "appDesc": {
+    "message": "Fast fuzzy search for your open tabs, bookmarks, and browsing history directly from the omnibox with keyword 'f'.",
+    "description": "Description of the extension"
+  },
+  "omniboxPrompt": {
+    "message": "Type keywords to search tabs, bookmarks & history...",
+    "description": "Prompt message in the omnibox"
+  },
+  "omniboxLoading": {
+    "message": "Loading data (or all search targets are disabled)...",
+    "description": "Shown while loading search targets"
+  },
+  "omniboxNoMatches": {
+    "message": "No matches found for ",
+    "description": "Shown when no search results match"
+  },
+  "tagTab": {
+    "message": "[Tab]",
+    "description": "Tag label for open tabs"
+  },
+  "tagBookmark": {
+    "message": "[Bookmark]",
+    "description": "Tag label for bookmarks"
+  },
+  "tagHistory": {
+    "message": "[History]",
+    "description": "Tag label for history items"
+  },
+  "optionsTitle": {
+    "message": "omnibox-fzf Settings",
+    "description": "Title on options page"
+  },
+  "sectionSearchTargets": {
+    "message": "Search Targets",
+    "description": "Section title in options"
+  },
+  "settingTabsTitle": {
+    "message": "Open Tabs [Tab]",
+    "description": "Option for tabs"
+  },
+  "settingTabsDesc": {
+    "message": "Search currently open tabs and switch directly to them",
+    "description": "Description for tabs option"
+  },
+  "settingBookmarksTitle": {
+    "message": "Bookmarks [Bookmark]",
+    "description": "Option for bookmarks"
+  },
+  "settingBookmarksDesc": {
+    "message": "Search saved browser bookmarks",
+    "description": "Description for bookmarks option"
+  },
+  "settingHistoryTitle": {
+    "message": "Browsing History [History]",
+    "description": "Option for history"
+  },
+  "settingHistoryDesc": {
+    "message": "Search past browsing history with fuzzy matching",
+    "description": "Description for history option"
+  },
+  "settingHistoryDurationTitle": {
+    "message": "History Duration",
+    "description": "Option for history duration"
+  },
+  "settingHistoryDurationDesc": {
+    "message": "How many months of history to search (0 = all-time, up to 50k items)",
+    "description": "Description for history duration"
+  },
+  "allHistoryBadge": {
+    "message": "All History",
+    "description": "Badge when history duration is 0"
+  },
+  "allHistoryDesc": {
+    "message": "Searching all-time browsing history (up to 50,000 items)",
+    "description": "Description when 0 is entered"
+  },
+  "unitMonths": {
+    "message": "months",
+    "description": "Unit label for months"
+  },
+  "unitAllHistory": {
+    "message": "(All-time)",
+    "description": "Unit label when 0 is entered"
+  },
+  "toastSaved": {
+    "message": "Settings saved",
+    "description": "Toast message after saving"
+  }
+}

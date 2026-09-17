@@ -281,6 +281,7 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
       description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxPrompt', 'Type keywords to search tabs, bookmarks & history...'))}`
     });
     topResultItem = null;
+    suggest([]);
     return;
   }
 
@@ -294,6 +295,7 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
     chrome.omnibox.setDefaultSuggestion({
       description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxLoading', 'Loading data...'))}`
     });
+    suggest([]);
     return;
   }
 
@@ -303,9 +305,10 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
 
   if (!results || results.length === 0) {
     chrome.omnibox.setDefaultSuggestion({
-      description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxNoMatches', 'No matches found for '))}<match>${escapeXml(query)}</match>`
+      description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxNoMatches', 'No matches found for '))}<match>%s</match>`
     });
     topResultItem = null;
+    suggest([]);
     return;
   }
 
@@ -329,6 +332,7 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
 
   suggest(suggestions);
 });
+
 
 // Navigate or switch tab when an omnibox entry is accepted
 chrome.omnibox.onInputEntered.addListener(async (text, disposition) => {

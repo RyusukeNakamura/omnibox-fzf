@@ -12,6 +12,8 @@ let fzfInstance = null;
 let lastFetchTime = 0;
 let topResultItem = null;
 let itemByUrlMap = new Map();
+let latestQuery = '';
+let currentQuerySeq = 0;
 
 /**
  * i18n helper with fallback
@@ -156,14 +158,66 @@ async function refreshData(force = false) {
 
   cachedItems = Array.from(itemByUrlMap.values());
 
-  // Initialize Fzf with extendedMatch
+  // Initialize Fzf with extendedMatch and Katakana->Hiragana alias for flexible matching
   fzfInstance = new Fzf(cachedItems, {
-    selector: (item) => `${item.title} ${item.url}`,
+    selector: (item) => `${item.title} ${katakanaToHiragana(item.title)} ${item.url}`,
     casing: 'case-insensitive',
     match: extendedMatch
   });
 
   lastFetchTime = Date.now();
+}
+
+/**
+ * Convert Katakana characters to Hiragana
+ */
+function katakanaToHiragana(str) {
+  if (!str) return '';
+  return str.replace(/[\u30a1-\u30f6]/g, (ch) =>
+    String.fromCharCode(ch.charCodeAt(0) - 0x60)
+  );
+}
+
+/**
+ * Convert Hiragana characters to Katakana
+ */
+function hiraganaToKatakana(str) {
+  if (!str) return '';
+  return str.replace(/[\u3041-\u3096]/g, (ch) =>
+    String.fromCharCode(ch.charCodeAt(0) + 0x60)
+  );
+}
+
+/**
+ * Check if a string contains Kanji characters
+ */
+function containsKanji(str) {
+  return /[\u4e00-\u9faf\u3400-\u4dbf]/.test(str);
+}
+
+/**
+ * Perform fzf search with automatic Hiragana/Katakana fallback
+ */
+function findWithKanaFallback(fzf, query) {
+  if (!fzf || !query) return [];
+  let results = fzf.find(query);
+  if (results && results.length > 0) return results;
+
+  // Fallback 1: If no match, try Katakana -> Hiragana converted query
+  const hira = katakanaToHiragana(query);
+  if (hira !== query) {
+    results = fzf.find(hira);
+    if (results && results.length > 0) return results;
+  }
+
+  // Fallback 2: If no match, try Hiragana -> Katakana converted query
+  const kata = hiraganaToKatakana(query);
+  if (kata !== query) {
+    results = fzf.find(kata);
+    if (results && results.length > 0) return results;
+  }
+
+  return [];
 }
 
 /**
@@ -218,7 +272,10 @@ chrome.omnibox.onInputStarted.addListener(() => {
 
 // On query text changed
 chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
+  const seq = ++currentQuerySeq;
   const query = text.trim();
+  latestQuery = query;
+
   if (!query) {
     chrome.omnibox.setDefaultSuggestion({
       description: `<dim>[fzf]</dim> ${escapeXml(t('omniboxPrompt', 'Type keywords to search tabs, bookmarks & history...'))}`
@@ -227,7 +284,11 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
     return;
   }
 
-  await refreshData();
+  // Only await refreshData if fzf instance is not initialized yet
+  if (!fzfInstance || cachedItems.length === 0) {
+    await refreshData();
+    if (seq !== currentQuerySeq) return;
+  }
 
   if (!fzfInstance || cachedItems.length === 0) {
     chrome.omnibox.setDefaultSuggestion({
@@ -236,8 +297,9 @@ chrome.omnibox.onInputChanged.addListener(async (text, suggest) => {
     return;
   }
 
-  // Execute fzf search
-  const results = fzfInstance.find(query);
+  // Execute fzf search synchronously (0ms latency, zero microtask race)
+  const results = findWithKanaFallback(fzfInstance, query);
+  if (seq !== currentQuerySeq) return;
 
   if (!results || results.length === 0) {
     chrome.omnibox.setDefaultSuggestion({
@@ -274,8 +336,43 @@ chrome.omnibox.onInputEntered.addListener(async (text, disposition) => {
 
   if (text.startsWith('http://') || text.startsWith('https://')) {
     targetItem = itemByUrlMap.get(text);
-  } else if (topResultItem) {
-    targetItem = topResultItem;
+  } else {
+    // User pressed Enter on the query text in the Omnibox.
+    const inputQuery = text.trim();
+
+    // Determine candidate queries: prioritize Kanji conversion if user converted fast
+    const candidateQueries = [];
+    if (containsKanji(inputQuery)) {
+      candidateQueries.push(inputQuery);
+      if (latestQuery && latestQuery !== inputQuery) {
+        candidateQueries.push(latestQuery);
+      }
+    } else if (latestQuery && containsKanji(latestQuery)) {
+      // latestQuery has Kanji from IME conversion while inputQuery was pre-composition
+      candidateQueries.push(latestQuery);
+      if (inputQuery) candidateQueries.push(inputQuery);
+    } else {
+      if (inputQuery) candidateQueries.push(inputQuery);
+      if (latestQuery && latestQuery !== inputQuery) {
+        candidateQueries.push(latestQuery);
+      }
+    }
+
+    // Always perform a fresh search directly with candidate queries
+    if (fzfInstance) {
+      for (const q of candidateQueries) {
+        const results = findWithKanaFallback(fzfInstance, q);
+        if (results && results.length > 0) {
+          targetItem = results[0].item;
+          break;
+        }
+      }
+    }
+
+    // Fallback to topResultItem if direct search found nothing
+    if (!targetItem && topResultItem) {
+      targetItem = topResultItem;
+    }
   }
 
   // If matched an open tab, switch directly to it!
@@ -290,9 +387,10 @@ chrome.omnibox.onInputEntered.addListener(async (text, disposition) => {
   }
 
   // Otherwise, open the URL
+  const queryFallback = (latestQuery && containsKanji(latestQuery)) ? latestQuery : text;
   let targetUrl = targetItem ? targetItem.url : text;
   if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
-    targetUrl = `https://www.google.com/search?q=${encodeURIComponent(text)}`;
+    targetUrl = `https://www.google.com/search?q=${encodeURIComponent(queryFallback)}`;
   }
 
   if (disposition === 'currentTab') {
@@ -303,3 +401,4 @@ chrome.omnibox.onInputEntered.addListener(async (text, disposition) => {
     chrome.tabs.create({ url: targetUrl, active: false });
   }
 });
+

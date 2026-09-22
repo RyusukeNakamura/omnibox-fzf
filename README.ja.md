@@ -2,6 +2,11 @@
 
 [[English](README.md) | 日本語]
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/hkanmbmmkploagcbeclbaflbflbnepcm?logo=googlechrome&logoColor=white&label=Chrome%20Web%20Store)](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/hkanmbmmkploagcbeclbaflbflbnepcm)](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm)
+[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/hkanmbmmkploagcbeclbaflbflbnepcm)](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 ブラウザのアドレスバーで、開いているタブやブックマーク、閲覧履歴を fzf 検索できる拡張機能です。キーボードから手を離さずに、目的のページをすぐに見つけられます。
 
 Chrome、Brave、Microsoft Edge などの Chromium 系ブラウザに対応しています。外部通信は一切行いません。手元のメモリ内だけで軽快に動きます。設定も最小限です。すぐ使えます。
@@ -40,16 +45,22 @@ Chrome、Brave、Microsoft Edge などの Chromium 系ブラウザに対応し�
 **使用例**:
 `f github !wiki` と入力すると、「`github` を含み、かつ `wiki` を含まない」タブや履歴を絞り込めます。
 
-## インストール手順（開発版）
+## インストール手順
 
+### Chrome ウェブストア（推奨）
 
-1. ブラウザで拡張機能の管理画面を開きます。
+[Chrome ウェブストア](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm) からワンクリックでインストールできます。
+
+### 開発版の手動インストール
+
+1. このリポジトリをクローンまたはダウンロードします。
+2. ブラウザで拡張機能の管理画面を開きます。
    - Chrome: `chrome://extensions`
    - Brave: `brave://extensions`
    - Edge: `edge://extensions`
-2. 右上の **デベロッパーモード** をオンにします。
-3. 左上の **パッケージ化されていない拡張機能を読み込む** をクリックします。
-4. このリポジトリのフォルダ（`omnibox-fzf`）を選択します。これだけで完了です。
+3. 右上の **デベロッパーモード** をオンにします。
+4. 左上の **パッケージ化されていない拡張機能を読み込む** をクリックします。
+5. このリポジトリのフォルダ（`omnibox-fzf`）を選択します。これだけで完了です。
 
 ## 設定
 

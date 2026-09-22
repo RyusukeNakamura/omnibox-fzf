@@ -2,6 +2,11 @@
 
 [English | [日本語](README.ja.md)]
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/hkanmbmmkploagcbeclbaflbflbnepcm?logo=googlechrome&logoColor=white&label=Chrome%20Web%20Store)](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/hkanmbmmkploagcbeclbaflbflbnepcm)](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm)
+[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/hkanmbmmkploagcbeclbaflbflbnepcm)](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Browser address bar extension for fast fuzzy searching open tabs, bookmarks, and browsing history using the fzf algorithm.
 
 A lightweight extension for Chromium-based browsers (Chrome, Brave, Edge, etc.) that brings fzf-powered search directly into your omnibox (address bar).
@@ -37,16 +42,22 @@ A lightweight extension for Chromium-based browsers (Chrome, Brave, Edge, etc.) 
 
 **Example**: `f github !wiki` matches items with `github` while excluding any containing `wiki`.
 
-## Installation (Unpacked)
+## Installation
 
+### Chrome Web Store (Recommended)
 
-1. Open your browser's extension manager:
+Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/omnibox-fzf-tabs-bookmark/hkanmbmmkploagcbeclbaflbflbnepcm).
+
+### Install from Source (Developer mode)
+
+1. Clone or download this repository.
+2. Open your browser's extension manager:
    - Chrome: `chrome://extensions`
    - Brave: `brave://extensions`
    - Edge: `edge://extensions`
-2. Enable **Developer mode** (toggle in the top-right corner).
-3. Click **Load unpacked** in the top-left corner.
-4. Select this directory (`omnibox-fzf`).
+3. Enable **Developer mode** (toggle in the top-right corner).
+4. Click **Load unpacked** in the top-left corner.
+5. Select this directory (`omnibox-fzf`).
 
 ## Configuration
 

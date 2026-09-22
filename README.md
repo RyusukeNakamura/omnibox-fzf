@@ -22,7 +22,23 @@ A lightweight extension for Chromium-based browsers (Chrome, Brave, Edge, etc.) 
    - Press `Enter`: Jump immediately to the top result (or switch to that tab).
    - Use `↑` / `↓` arrows to select a result and press `Enter`.
 
+## Search Syntax (fzf Extended Match)
+
+`omnibox-fzf` supports standard fzf extended search syntax:
+
+| Pattern | Match type | Description |
+| :--- | :--- | :--- |
+| `term` | Fuzzy | Subsequence match (standard fzf fuzzy matching) |
+| `'term` | Exact-match | Substring match (disables fuzzy matching for this term) |
+| `!term` | Inverse-match | Exclude items containing this term |
+| `^term` | Prefix-match | Items starting with term |
+| `term$` | Suffix-match | Items ending with term |
+| `a b` | AND match | Match items containing both `a` and `b` in any order |
+
+**Example**: `f github !wiki` matches items with `github` while excluding any containing `wiki`.
+
 ## Installation (Unpacked)
+
 
 1. Open your browser's extension manager:
    - Chrome: `chrome://extensions`

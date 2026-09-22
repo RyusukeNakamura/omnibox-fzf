@@ -90,5 +90,30 @@
   "toastSaved": {
     "message": "設定を保存しました",
     "description": "保存完了通知"
+  },
+  "sectionTipsTitle": {
+    "message": "検索テクニック（fzf 構文）",
+    "description": "Tipsセクションのタイトル"
+  },
+  "tipExact": {
+    "message": "完全一致（あいまい検索を行わず、その語句を含むもの）",
+    "description": "完全一致の説明"
+  },
+  "tipInverse": {
+    "message": "除外検索（指定したキーワードを含まないもの）",
+    "description": "除外検索の説明"
+  },
+  "tipPrefix": {
+    "message": "前方一致（指定したキーワードから始まるもの）",
+    "description": "前方一致の説明"
+  },
+  "tipSuffix": {
+    "message": "後方一致（指定したキーワードで終わるもの）",
+    "description": "後方一致の説明"
+  },
+  "tipAnd": {
+    "message": "スペース区切りの AND 検索（順不同で複数キーワードに合致）",
+    "description": "AND検索の説明"
   }
 }
+

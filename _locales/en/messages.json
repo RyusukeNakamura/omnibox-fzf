@@ -90,5 +90,30 @@
   "toastSaved": {
     "message": "Settings saved",
     "description": "Toast message after saving"
+  },
+  "sectionTipsTitle": {
+    "message": "Search Syntax Tips",
+    "description": "Section title for search tips"
+  },
+  "tipExact": {
+    "message": "Exact-match (exact substring instead of fuzzy)",
+    "description": "Tip for exact match"
+  },
+  "tipInverse": {
+    "message": "Inverse-match (exclude items containing this term)",
+    "description": "Tip for inverse match"
+  },
+  "tipPrefix": {
+    "message": "Prefix-exact-match (items starting with term)",
+    "description": "Tip for prefix match"
+  },
+  "tipSuffix": {
+    "message": "Suffix-exact-match (items ending with term)",
+    "description": "Tip for suffix match"
+  },
+  "tipAnd": {
+    "message": "Space-separated AND search (multiple keywords in any order)",
+    "description": "Tip for AND search"
   }
 }
+
